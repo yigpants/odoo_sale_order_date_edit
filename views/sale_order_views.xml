@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 修改銷售訂單表單視圖 - 在視圖內部使用 groups 屬性 -->
+        <record id="view_order_form_date_editable" model="ir.ui.view">
+            <field name="name">sale.order.form.date.editable</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="date_order" position="replace">
+                    <!-- 沒有權限的使用者看到的唯讀欄位 -->
+                    <field name="date_order" 
+                           string="訂單日期" 
+                           groups="!sale_order_date_edit.group_edit_order_date"
+                           readonly="1"/>
+                    <!-- 有權限的使用者看到的可編輯欄位 -->
+                    <field name="date_order" 
+                           string="訂單日期" 
+                           groups="sale_order_date_edit.group_edit_order_date"
+                           readonly="0"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
